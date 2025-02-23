@@ -23,6 +23,7 @@ interface Session {
   therapist: string;
   therapistId: string;
   summary: string;
+  shortSummary?: string;
   journalingPrompt: string;
   journalingResponse: string;
   patientId: string;
@@ -58,6 +59,7 @@ export default function JournalPage() {
             therapist: data.therapist,
             therapistId: data.therapistId,
             summary: data.summary,
+            shortSummary: data.shortSummary || "",
             journalingPrompt: data.journalingPrompt || "",
             journalingResponse: data.journalingResponse || "",
             patientId: data.patientId,

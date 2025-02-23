@@ -239,7 +239,7 @@ export default function SessionsPage() {
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-gray-600 line-clamp-2">{entry.summary}</p>
+                    <p className="text-gray-600 truncate max-w-lg">{entry.summary}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-3">

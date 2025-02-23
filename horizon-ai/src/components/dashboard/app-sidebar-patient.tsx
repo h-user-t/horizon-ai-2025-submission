@@ -12,7 +12,8 @@ import {
   UserCircle,
   BellRing,
   LogOut, 
-  Armchair
+  Armchair,
+  MessageSquare
 } from "lucide-react"
 import { signOut } from "firebase/auth"
 import { auth } from "@/app/utils/firebase/config"
@@ -68,6 +69,12 @@ const mainNavItems: NavItem[] = [
     title: "Journaling",
     url: "/patient/journal",
     icon: BookOpen
+  },
+  { 
+    title: "Messages",
+    url: "/patient/messages",
+    icon: MessageSquare,
+    badge: "3" // Could be made dynamic later
   }
 ]
 

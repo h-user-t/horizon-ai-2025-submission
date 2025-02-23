@@ -25,6 +25,7 @@ import { DebugMode } from '@/lib/Debug';
 import { SettingsMenu } from '@/lib/SettingsMenu';
 import { decodePassphrase } from '@/lib/client-utils';
 import { VideoConference } from './Video';
+import { auth } from "@/app/utils/firebase/config"
 
 const SHOW_SETTINGS_MENU = process.env.NEXT_PUBLIC_SHOW_SETTINGS_MENU == 'true';
 
@@ -114,6 +115,11 @@ function VideoConferenceComponent(props: {
     }), []);
   
     const handleOnLeave = React.useCallback(async () => {
+
+      const currentUser = auth.currentUser;
+      const sessionId = typeof window !== 'undefined' && window.location.pathname.split('/').pop();
+      
+
       router.back();
       setTimeout(async () => {
 

@@ -114,7 +114,7 @@ function VideoConferenceComponent(props: {
     }), []);
   
     const handleOnLeave = React.useCallback(async () => {
-      router.push('/');
+      router.back();
       setTimeout(async () => {
 
         const transcriptionResponse = fetch('/api/getTranscription', {

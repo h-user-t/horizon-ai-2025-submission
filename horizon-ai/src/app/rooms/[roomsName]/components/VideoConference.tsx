@@ -127,13 +127,13 @@ function VideoConferenceComponent(props: {
   
         const transcriptionText = (await transcriptionResponse).text;
         
-        const summaryResponse = fetch('/api/getSummary', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: transcriptionText }),
-        });
+        // const summaryResponse = fetch('/api/getSummary', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({ prompt: transcriptionText }),
+        // });
       }, 10000);
 
     }, []);

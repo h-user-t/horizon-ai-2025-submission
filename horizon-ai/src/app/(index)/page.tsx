@@ -144,6 +144,15 @@ const LandingPage = () => {
       <NavbarWaitlist />
 
       <main className="relative pt-32 md:pt-40 pb-10 overflow-hidden">
+        <button className='border border-black rounded-xl p-3' onClick={() => {
+          const transcriptionResponse = fetch('/api/getTranscription', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ s3Key: 'TherapyRecording.mp4' }),
+          });
+        }}>API CALL</button>
         <div className="relative z-10 container mx-auto px-4 md:px-6">
           {/* Hero Section */}
           <div className="max-w-3xl mx-auto text-center">

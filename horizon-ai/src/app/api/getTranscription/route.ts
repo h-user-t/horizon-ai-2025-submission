@@ -48,8 +48,21 @@ export async function POST(req: NextRequest) {
     fs.unlinkSync(filePath);
 
     console.log('🤬🤬🤬🤬🤬🤬🤬:', transcription.text);
+    // Call getSummary API with the transcription text
+    const summaryResponse = await fetch("http://localhost:3000/api/getSummary", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: transcription.text }),
+    });
 
-    return NextResponse.json({ transcription }, { status: 200 });
+    if (!summaryResponse.ok) {
+      throw new Error("Failed to get summary");
+    }
+
+    const summary = await summaryResponse.json();
+    return NextResponse.json({ transcription, summary }, { status: 200 });
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ error: "Failed to process file" }, { status: 500 });

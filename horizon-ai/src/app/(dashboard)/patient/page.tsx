@@ -190,9 +190,18 @@ export default function PatientDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold flex items-center gap-2">
+            <CardTitle className="text-lg font-semibold flex items-center justify-between gap-2">
+              <div className="flex flex-row items-center gap-2">
+
               <Calendar className="h-5 w-5 text-[#146C94]" />
               Next Session
+              </div>
+              <Link href={`/rooms/${nextSession!.id}`} className="flex flex-row items-center bg-[#AFD3E2] text-[#146C94] px-5 py-2 rounded-md text-sm font-medium hover:bg-[#146C94] hover:text-[#F6F1F1] transition-all duration-200 shadow-sm hover:shadow-md">
+                
+                  Join Room
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                
+              </Link>
             </CardTitle>
           </CardHeader>
           <CardContent>

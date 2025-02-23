@@ -48,6 +48,7 @@ interface Session {
   therapistId: string;
   therapist: string;
   summary: string;
+  shortSummary?: string;
   status: string;
   patientId: string;
 }
@@ -105,6 +106,7 @@ export default function PatientDashboard() {
                 therapistId: data.therapistId,
                 therapist: therapistName,
                 summary: data.summary || "No summary available",
+                shortSummary: data.shortSummary || "",
                 status: data.status || "unknown",
                 patientId: data.patientId,
               }

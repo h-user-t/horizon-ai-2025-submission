@@ -41,7 +41,7 @@ export interface Session {
   therapist: string;
   therapistId: string;
   summary: string;
-  detailedNotes?: string;
+  shortSummary?: string;
   keyPoints: string[];
   insights: string[];
   mood: string;
@@ -128,7 +128,7 @@ export default function TherapistDashboard() {
             therapist: data.therapist,
             therapistId: data.therapistId,
             summary: data.summary,
-            detailedNotes: data.detailedNotes || "",
+            shortSummary: data.shortSummary || "",
             keyPoints: data.keyPoints || [],
             insights: data.insights || [],
             mood: data.mood || "",

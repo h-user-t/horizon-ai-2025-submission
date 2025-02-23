@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { useState, useEffect } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
@@ -98,7 +98,7 @@ export default function SchedulePage() {
         const therapistsRef = collection(db, "users")
         const therapistQuery = query(therapistsRef, where("role", "==", "therapist"))
         const therapistSnapshot = await getDocs(therapistQuery)
-        const fetchedTherapists: Therapist[] = therapistSnapshot.docs.map(doc => ({
+        const fetchedTherapists: Therapist[] = therapistSnapshot.docs.map((doc) => ({
           id: doc.id,
           first_name: doc.data().first_name,
           last_name: doc.data().last_name,
@@ -109,10 +109,10 @@ export default function SchedulePage() {
       } finally {
         setLoading(false)
       }
-    }
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const handleBookAppointment = async () => {
     if (!selectedDate || !selectedHour || !selectedMinute || !selectedTherapist) {
@@ -120,31 +120,31 @@ export default function SchedulePage() {
       return
     }
 
-    const currentUser = auth.currentUser
-    if (!currentUser) return
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;
 
-    const db = getFirestore()
-    const sessionDate = new Date(selectedDate)
-    sessionDate.setHours(parseInt(selectedHour), parseInt(selectedMinute))
+    const db = getFirestore();
+    const sessionDate = new Date(selectedDate);
+    sessionDate.setHours(parseInt(selectedHour), parseInt(selectedMinute));
 
-    const timeFormatted = `${selectedHour.padStart(2, '0')}:${selectedMinute.padStart(2, '0')}`
+    const timeFormatted = `${selectedHour.padStart(2, '0')}:${selectedMinute.padStart(2, '0')}`;
 
     const newSession = {
       sessionDate: sessionDate,
       therapistId: selectedTherapist,
       patientId: currentUser.uid,
-      summary: `Session with Dr. ${therapists.find(t => t.id === selectedTherapist)?.last_name}`,
+      summary: `Session with Dr. ${therapists.find((t) => t.id === selectedTherapist)?.last_name}`,
       keyPoints: [],
       insights: [],
-      mood: "Neutral",
-      progress: "Upcoming",
+      mood: 'Neutral',
+      progress: 'Upcoming',
       goals: [],
       warnings: [],
-      transcript: "",
-      journalingPrompt: "",
-      journalingResponse: "",
-      status: "scheduled",
-    }
+      transcript: '',
+      journalingPrompt: '',
+      journalingResponse: '',
+      status: 'scheduled',
+    };
 
     try {
       const sessionRef = doc(collection(db, "sessions"))

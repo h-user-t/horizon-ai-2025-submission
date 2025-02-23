@@ -103,6 +103,7 @@ interface Session {
   sessionDate: Date;
   therapistId: string;
   summary: string;
+  shortSummary?: string;
   keyPoints: string[];
   insights: string[];
   mood: string;
@@ -168,6 +169,7 @@ export function PatientSidebar() {
           sessionDate: data.sessionDate.toDate(),
           therapistId: data.therapistId,
           summary: data.summary,
+          shortSummary: data.shortSummar || "",
           keyPoints: data.keyPoints || [],
           insights: data.insights || [],
           mood: data.mood || "",

@@ -25,6 +25,7 @@ interface Session {
   sessionDate: Date;
   therapistId: string;
   summary: string;
+  shortSummary?: string;
   patientId: string;
   status: string;
 }
@@ -75,6 +76,7 @@ export default function TherapistPatientSessionsPage() {
           sessionDate: doc.data().sessionDate.toDate(),
           therapistId: doc.data().therapistId,
           summary: doc.data().summary || "No summary available",
+          shortSummary: doc.data().shortSummary || "",
           patientId: doc.data().patientId,
           status: doc.data().status || "upcoming",
         }))

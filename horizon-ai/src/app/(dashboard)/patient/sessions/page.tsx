@@ -29,7 +29,7 @@ export interface Session {
   therapist: string;       // Therapist's display name (to be fetched from users collection)
   therapistId: string;     // Therapist's UID (matches a document in users)
   summary: string;
-  detailedNotes?: string;  // Optional detailed notes
+  shortSummary?: string;
   keyPoints: string[];
   insights: string[];
   mood: string;
@@ -70,7 +70,7 @@ export default function SessionsPage() {
             therapist: data.therapist, // initial value (may be overwritten)
             therapistId: data.therapistId,
             summary: data.summary,
-            detailedNotes: data.detailedNotes || "",
+            shortSummary: data.shortSummary || "",
             keyPoints: data.keyPoints || [],
             insights: data.insights || [],
             mood: data.mood || "",
@@ -239,7 +239,7 @@ export default function SessionsPage() {
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-gray-600 line-clamp-2">{entry.summary}</p>
+                    <p className="text-gray-600 truncate max-w-lg">{entry.summary}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-3">

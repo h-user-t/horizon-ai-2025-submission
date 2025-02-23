@@ -10,8 +10,8 @@ import SuccessDialog from './componenets/SuccessDialogSection';
 import NavbarWaitlist from '@/components/navbar/navbar-landing';
 import TestimonialSection from './componenets/TestimonialSection';
 import { useToast } from '@/hooks/use-toast';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../utils/firebase/config';
+import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../utils/firebase/config';
 
 const pacifico = Pacifico({
   subsets: ['latin'],
@@ -139,11 +139,40 @@ const LandingPage = () => {
     }
   };
 
+  const handleApiCall = async () => {
+    const currentUser = auth.currentUser;
+          const sessionId = '0m7UvstdRRutwSh14PXm'
+          if (!sessionId) {
+            throw new Error('Session ID not found');
+          }
+          const docRef = doc(db, "sessions", sessionId);
+          const therapistId = (await getDoc(docRef)).data()!.therapistId
+          console.log('THERAPIST ID:', therapistId)
+
+          const transcriptionResponse = await fetch('/api/getTranscription', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              s3Key: 'TherapyRecording.mp4',
+              userId: currentUser?.uid,
+              therapistId: therapistId,
+              sessionDate: new Date(Date.now()),
+              sessionId: sessionId,
+            }),
+          });
+          
+  }
+
   return (
     <div className="min-h-screen bg-[#FFFFFF]">
       <NavbarWaitlist />
 
       <main className="relative pt-32 md:pt-40 pb-10 overflow-hidden">
+        <button className='border border-black rounded-xl p-3' onClick={() => {
+          handleApiCall();
+        }}>API CALL</button>
         <div className="relative z-10 container mx-auto px-4 md:px-6">
           {/* Hero Section */}
           <div className="max-w-3xl mx-auto text-center">

@@ -25,6 +25,8 @@ import { DebugMode } from '@/lib/Debug';
 import { SettingsMenu } from '@/lib/SettingsMenu';
 import { decodePassphrase } from '@/lib/client-utils';
 import { VideoConference } from './Video';
+import { auth, db } from "@/app/utils/firebase/config"
+import { doc, getDoc } from 'firebase/firestore';
 
 const SHOW_SETTINGS_MENU = process.env.NEXT_PUBLIC_SHOW_SETTINGS_MENU == 'true';
 
@@ -114,7 +116,17 @@ function VideoConferenceComponent(props: {
     }), []);
   
     const handleOnLeave = React.useCallback(async () => {
-      router.push('/');
+
+      const currentUser = auth.currentUser;
+      const sessionId = typeof window !== 'undefined' ? window.location.pathname.split('/').pop() : '';
+      if (!sessionId) {
+        throw new Error('Session ID not found');
+      }
+      const docRef = doc(db, "sessions", sessionId);
+      const docSnap = await getDoc(docRef)
+      const therapistId = docSnap.data()!.therapistId
+
+      router.back();
       setTimeout(async () => {
 
         const transcriptionResponse = fetch('/api/getTranscription', {
@@ -122,18 +134,18 @@ function VideoConferenceComponent(props: {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ s3Key: 'TherapyRecording.mp4' }),
+          body: JSON.stringify({ s3Key: 'TherapyRecording.mp4', userId: currentUser?.uid, therapistId, sessionDate: new Date(), sessionId }),
         });
   
         const transcriptionText = (await transcriptionResponse).text;
         
-        const summaryResponse = fetch('/api/getSummary', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: transcriptionText }),
-        });
+        // const summaryResponse = fetch('/api/getSummary', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({ prompt: transcriptionText }),
+        // });
       }, 10000);
 
     }, []);

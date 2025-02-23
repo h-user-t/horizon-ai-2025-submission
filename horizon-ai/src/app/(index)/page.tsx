@@ -139,31 +139,51 @@ const LandingPage = () => {
     }
   };
 
+  // Huge Update: Added API Call
   const handleApiCall = async () => {
-    const currentUser = auth.currentUser;
-          const sessionId = '0m7UvstdRRutwSh14PXm'
-          if (!sessionId) {
-            throw new Error('Session ID not found');
-          }
-          const docRef = doc(db, "sessions", sessionId);
-          const therapistId = (await getDoc(docRef)).data()!.therapistId
-          console.log('THERAPIST ID:', therapistId)
-
-          const transcriptionResponse = await fetch('/api/getTranscription', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              s3Key: 'TherapyRecording.mp4',
-              userId: currentUser?.uid,
-              therapistId: therapistId,
-              sessionDate: new Date(Date.now()),
-              sessionId: sessionId,
-            }),
-          });
-          
-  }
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error('User not authenticated');
+      }
+  
+      const sessionId = '0m7UvstdRRutwSh14PXm';
+      const docRef = doc(db, "sessions", sessionId);
+      const sessionDoc = await getDoc(docRef);
+  
+      if (!sessionDoc.exists()) {
+        throw new Error('Session not found');
+      }
+  
+      const therapistId = sessionDoc.data().therapistId;
+      console.log('THERAPIST ID:', therapistId);
+  
+      const transcriptionResponse = await fetch('/api/getTranscription', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          s3Key: 'TherapyRecording.mp4',
+          userId: currentUser.uid,
+          therapistId: therapistId,
+          sessionDate: new Date(Date.now()),
+          sessionId: sessionId,
+        }),
+      });
+  
+      if (!transcriptionResponse.ok) {
+        const error = await transcriptionResponse.json();
+        throw new Error(error.error || 'Failed to get transcription');
+      }
+  
+      const result = await transcriptionResponse.json();
+      console.log('Transcription result:', result);
+    } catch (error) {
+      console.error('Error in API call:', error);
+      // Handle error appropriately (e.g., show toast notification)
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#FFFFFF]">

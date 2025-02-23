@@ -1,0 +1,35 @@
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 6px;
+    margin: 8px 0;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+  
+  /* Firefox scrollbar styles */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #e5e7eb transparent;
+  }
+  
+  .custom-scrollbar:hover {
+    scrollbar-color: #d1d5db transparent;
+  }

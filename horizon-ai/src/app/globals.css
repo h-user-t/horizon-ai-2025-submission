@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --brand-light: 192 6% 97%; /* #F6F1F1 */
+    --brand-medium: 200 53% 75%; /* #AFD3E2 */
+    --brand-dark: 201 75% 33%; /* #146C94 */
+
+    /* Base Colors */
+    --background: var(--brand-light);
+    --foreground: var(--brand-dark);
+    
+    /* Card Colors */
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: var(--brand-dark);
+    
+    /* Popover Colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--brand-dark);
+    
+    /* Primary Colors */
+    --primary: var(--brand-dark);
+    --primary-foreground: var(--brand-light);
+    
+    /* Secondary Colors */
+    --secondary: var(--brand-medium);
+    --secondary-foreground: var(--brand-dark);
+    
+    /* Muted Colors */
+    --muted: 200 53% 90%;
+    --muted-foreground: 201 75% 45%;
+    
+    /* Accent Colors */
+    --accent: var(--brand-medium);
+    --accent-foreground: var(--brand-dark);
+    
+    /* Destructive Colors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Border and Input Colors */
+    --border: var(--brand-medium);
+    --input: var(--brand-medium);
+    --ring: var(--brand-dark);
+    
+    /* Border Radius */
+    --radius: 0.5rem;
+    
+    /* Chart Colors */
+    --chart-1: var(--brand-dark);
+    --chart-2: var(--brand-medium);
+    --chart-3: 201 75% 40%;
+    --chart-4: 200 53% 60%;
+    --chart-5: 192 6% 80%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Mode - Inverted Brand Colors */
+    --background: 201 75% 15%;
+    --foreground: var(--brand-light);
+    
+    /* Card Colors */
+    --card: 201 75% 20%;
+    --card-foreground: var(--brand-light);
+    
+    /* Popover Colors */
+    --popover: 201 75% 20%;
+    --popover-foreground: var(--brand-light);
+    
+    /* Primary Colors */
+    --primary: var(--brand-light);
+    --primary-foreground: var(--brand-dark);
+    
+    /* Secondary Colors */
+    --secondary: 200 53% 30%;
+    --secondary-foreground: var(--brand-light);
+    
+    /* Muted Colors */
+    --muted: 200 53% 25%;
+    --muted-foreground: 200 53% 70%;
+    
+    /* Accent Colors */
+    --accent: 200 53% 30%;
+    --accent-foreground: var(--brand-light);
+    
+    /* Destructive Colors */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Border and Input Colors */
+    --border: 200 53% 30%;
+    --input: 200 53% 30%;
+    --ring: var(--brand-light);
+    
+    /* Chart Colors - Adjusted for Dark Mode */
+    --chart-1: var(--brand-light);
+    --chart-2: 200 53% 70%;
+    --chart-3: 201 75% 60%;
+    --chart-4: 200 53% 50%;
+    --chart-5: 192 6% 40%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .bg-brand-gradient {
+    @apply bg-gradient-to-br from-[#146C94] to-[#AFD3E2];
+  }
+  
+  .text-brand-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#146C94] via-[#AFD3E2] to-[#146C94];
+  }
+
+  .custom-track-toggle button {
+    @apply bg-[#AFD3E2] text-[#146C94] px-6 py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 hover:bg-[#146C94] hover:text-white;
+  }
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply bg-[#AFD3E2] text-[#146C94] hover:bg-[#146C94] hover:text-white transition-colors duration-200;
+  }
+  
+  .btn-outline {
+    @apply border border-[#AFD3E2] text-[#146C94] hover:bg-[#146C94] hover:text-white transition-colors duration-200;
+  }
+  
+  .input-primary {
+    @apply border-[#AFD3E2] focus:border-[#146C94] text-[#146C94] placeholder:text-[#146C94]/50;
+  }
+}

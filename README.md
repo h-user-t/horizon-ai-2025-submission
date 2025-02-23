@@ -3,7 +3,6 @@ A web application that uses Next.js, Firestore, LiveKit, AWS S3, Whisper, and GP
 
 Getting Started
 Clone the repository
-git clone https://github.com/your-username/horizon-ai.git
 
 Change directory into the project folder
 cd horizon-ai
